@@ -1,13 +1,13 @@
 # 
-# 1) to install:
+# 1) To install:
 # 
 # c:\python39\python.exe -m pip install --upgrade pip
 # pip install watchdog
 # pip install pypiwin32
 # 
-# 2) to configure, edit lines 15 and 16 below to point to your 7zip and game install executables.
+# 2) To configure, edit lines 15 and 16 below to point to your 7zip and game install executables.
 #
-# 3) to run:
+# 3) To run the game and autobackupper:
 #
 # python autobackup_backpack_hero.py
 #
