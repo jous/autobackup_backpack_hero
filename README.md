@@ -1,8 +1,8 @@
 # Autobackupper for Backpack Hero
 
-## What does it do
+## What does this program do
 
-This program starts the game and checks for any modifications in the savegame folder. If there are new savegames present, it will zip them up to a backup folder.
+This program starts the game and checks for any modifications in the savegame folder. If there are new savegame files present, it will zip them up to a backup folder.
 
 ## Requirements
 
