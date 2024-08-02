@@ -1,7 +1,7 @@
 # 
 # 1) To install:
 # 
-# c:\python39\python.exe -m pip install --upgrade pip
+# python.exe -m pip install --upgrade pip
 # pip install watchdog
 # pip install pypiwin32
 # 
