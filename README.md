@@ -1,8 +1,12 @@
 # Autobackupper for Backpack Hero
 
-## What does this program do
+## Why
 
-This program starts the game and checks for any modifications in the savegame folder. If there are new savegame files present, it will zip them up to a backup folder.
+The savegames of Backpack Hero sometimes gets corrupted. This program is meant to fix that. It starts the game and checks for any modifications in the savegame folder. If there are new savegame files present, it will zip them up to a backup folder. They can then be extracted back to the savegame folder. The save files of interest are:
+
+- bphStoryModeOverworld\*.sav The village that you're building
+- bphStoryModeMetaData\*.sav Probably tells whether you are in the dungeon or in the village
+- bphStoryModeRun\*.sav Your place and stuff in the dungeon
 
 ## Requirements
 
