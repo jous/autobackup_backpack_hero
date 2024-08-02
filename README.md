@@ -1,6 +1,10 @@
 # Autobackupper for Backpack Hero
 
-## Requirements:
+## What does it do
+
+This program starts the game and checks for any modifications in the savegame folder. If there are new savegames present, it will zip them up to a backup folder.
+
+## Requirements
 
 - 7zip
 - Python
