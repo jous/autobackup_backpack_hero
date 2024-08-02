@@ -13,9 +13,9 @@ Download the latest Python from here: https://www.python.org/downloads/
 
 Copy the file autobackup_backpack_hero.py to anywhere in your computer. I suggest the folder where the game was installed. Then run:
 
-**python -m pip install --upgrade pip**<br>
-**pip install watchdog**<br>
-**pip install pypiwin32**<br>
+*python -m pip install --upgrade pip*<br>
+*pip install watchdog*<br>
+*pip install pypiwin32*<br>
 
 ## How to configure
 
@@ -23,4 +23,4 @@ Edit the lines 15 and 16 in the file autobackup_backpack_hero.py to point to you
 
 ## How to run
 
-**python autobackup_backpack_hero.py**
+*python autobackup_backpack_hero.py*
