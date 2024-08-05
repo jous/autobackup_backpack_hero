@@ -82,36 +82,33 @@ def on_modified(event):
 
     input_file = event.src_path
 
-    # otetaan vaan halutut tiedostot
+    # we only want certain files
     if allowed_extension(input_file):
 
-        # alustetaan milloin viimeks on tullu muutosilmotus
+        # lets speak that we only want get change notifications
         if not hasattr(on_modified, get_filename(input_file)):
             setattr(on_modified, get_filename(input_file), 0)
 
+        # sanitycheck, because we will get multiple notifications of the same file.
         lastrun = getattr(on_modified, get_filename(input_file))
-
-        # sanitycheck, koska jokaisesta writestä tulee ilmoitus, niin estetään useita käsittelyitä (pienillä tiedostoilla)
         if lastrun < get_timestamp() - 3:
 
             try:
-                # sanitycheck, ettei oo väärä ilmotus ikivanhasta filusta (>10min)
+                # we don't want ancient notification (>10min)
                 save_last_modified = os.path.getmtime(input_file)
                 if save_last_modified > get_timestamp() - 600:
 
                     setattr(on_modified, get_filename(input_file), get_timestamp())
 
-                    # odotellaan, että tiedosto on kirjoitettu täyteen
+                    # just play cool until the file is fully written
                     wait_for_file_fully_written(input_file)
 
-                    # tarkistetaan vielä ettei tiedosto oo auki toisella prosessilla
+                    # lets just check one more time that no other process is accessing the file
                     wait_for_open_file_pointers(input_file)
 
                     extra = "_" + get_filename(input_file).strip().replace("bph", "").replace("Mode", "")[0:-4]
                     output_file = write_backups_to + "\\" + string_now() + extra + ".zip"
                     log_string = "Adding " + get_filename(input_file).rjust(29) + " to " + output_file.replace(base_folder, ".").ljust(45)
-                    # print("Adding", get_filename(input_file).rjust(29) + " to " + output_file.replace(base_folder, ".").ljust(45), end = " ")
-                    # print(exec_7zip, "a", "-tzip", output_file, input_file)
 
                     result = subprocess.run([exec_7zip, "a", "-tzip", output_file, input_file], capture_output = True, text = True)
                     if result.returncode == 0:
@@ -138,7 +135,7 @@ def on_modified(event):
 def process_exists(process_name):
     call = "TASKLIST", "/FI", "imagename eq %s" % process_name
     result = subprocess.run(call, capture_output = True, text = True)
-    return result.stdout.count("\n") > 1 # if we got more than one line, the process is running.
+    return result.stdout.count("\n") > 1 # if we got more than one line, the process is running very much indeeed.
 
 
 
@@ -161,22 +158,10 @@ if __name__ == "__main__":
     try:
         while True:
             time.sleep(1)
+            # if the game is not running, why bother?
             if not process_exists("Backpack Hero.exe"):
                os._exit(0)
 
     except KeyboardInterrupt:
         my_observer.stop()
         my_observer.join()
-
-    # ei oteta alikansioista mitään
-    # if base_folder.count("\\") + 1 == input_file.count("\\"):
-    # else:
-    #     print("in a subfolder, ignoring: " + input_file.replace(base_folder, "."))
-    #     pass
-
-# base_folder = os.path.expanduser(os.sep.join(["~", "AppData", "LocalLow", "TheJaspel", "Backpack Hero"]))
-# write_backups_to = os.sep.join([base_folder, "backups"])
-
-                # koska välillä kirjoitukset kuitenkin törmää toisiinsa, niin odotellaan hetki, jos se vaikka auttais
-                # time.sleep(0.2)
-
